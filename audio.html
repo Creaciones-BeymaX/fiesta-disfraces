@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio</title>
+</head>
+<body>
+    <audio id="backgroundAudio" loop autoplay>
+        <source src="audio/musica1.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+        let audio = document.getElementById("backgroundAudio");
+
+        // Mantener reproducción entre páginas con sessionStorage
+        if (sessionStorage.getItem("audioPlaying") === "true") {
+            audio.play();
+        }
+
+        // Guardar estado cuando se reproduzca
+        audio.onplay = () => sessionStorage.setItem("audioPlaying", "true");
+        audio.onpause = () => sessionStorage.setItem("audioPlaying", "false");
+
+        // Si el usuario cambia de pestaña, mantenemos el estado
+        window.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "visible" && sessionStorage.getItem("audioPlaying") === "true") {
+                audio.play();
+            }
+        });
+    </script>
+</body>
+</html>
