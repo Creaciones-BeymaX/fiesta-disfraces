@@ -98,7 +98,7 @@
     </style>
 </head>
 <body>
-    <iframe src="audio.html" allow="autoplay" style="display: none;"></iframe>
+   
     <audio id="backgroundAudio" loop>
     <source src="audio/musica1.mp3" type="audio/mp3">
     Tu navegador no soporta audio.
@@ -158,32 +158,42 @@
         // Llamar a la función de confeti cada 1000ms (1 segundo)
         setInterval(createConfetti, 1000);
     </script>
-     <script>
-    let audio = document.getElementById("backgroundAudio");
+    <script>
     let playButton = document.getElementById("playButton");
 
-    // Intentar reproducir al cargar la página si ya estaba activado
+    // Intentar abrir el reproductor si ya se estaba reproduciendo
     document.addEventListener("DOMContentLoaded", function () {
         if (sessionStorage.getItem("audioPlaying") === "true") {
-            audio.play().catch(error => console.warn("No se pudo reproducir automáticamente:", error));
+            abrirReproductor(); // Abre la ventana emergente si la música estaba activa
             playButton.innerHTML = "⏸️";
         }
     });
 
     // Evento de clic para controlar la reproducción
     playButton.addEventListener("click", function () {
-        if (audio.paused) {
-            audio.play().then(() => {
-                sessionStorage.setItem("audioPlaying", "true");
-                playButton.innerHTML = "⏸️";
-            }).catch(error => console.warn("Error al reproducir el audio:", error));
-        } else {
-            audio.pause();
+        if (sessionStorage.getItem("audioPlaying") === "true") {
+            // Si la música está reproduciéndose, la pausamos
             sessionStorage.setItem("audioPlaying", "false");
             playButton.innerHTML = "▶️";
+            window.open("about:blank", "_self"); // Cerramos la ventana emergente
+        } else {
+            // Si la música no se está reproduciendo, la iniciamos en un popup
+            sessionStorage.setItem("audioPlaying", "true");
+            playButton.innerHTML = "⏸️";
+            abrirReproductor(); // Abrimos la ventana emergente para la música
         }
     });
+
+    function abrirReproductor() {
+        let reproductor = window.open("audio.html", "Reproductor", "width=300,height=100");
+        if (reproductor) {
+            sessionStorage.setItem("audioPlaying", "true");
+        } else {
+            alert("Por favor, habilita las ventanas emergentes en tu navegador.");
+        }
+    }
 </script>
+
 
 </body>
 </html>
