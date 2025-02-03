@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum Gestión 2020</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url('imagen/fondo1.jpg');
+            background-size: auto;
+            background-position: top left;
+            background-repeat: repeat;
+            overflow-x: hidden; /* Evita el desbordamiento horizontal */
+        }
+        .nav {
+            margin: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Crea dos columnas */
+            gap: 20px; /* Espacio entre los botones */
+            justify-content: center;
+        }
+        .nav button {
+            padding: 0;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: none;
+        }
+
+        .nav button img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .gallery {
+            display: flex;
+            flex-direction: column; /* Organiza las imágenes en una columna */
+            align-items: center; /* Centra las imágenes horizontalmente */
+            gap: 20px; /* Espacio entre las imágenes */
+            padding: 20px;
+        }
+        .gallery img {
+            width: 90%; /* Hace que las imágenes se adapten al 90% del ancho de la pantalla */
+            max-width: 300px; /* Ajusta el tamaño máximo */
+            height: auto; /* Mantiene las proporciones */
+            object-fit: cover; /* Mantiene las proporciones pero recorta si es necesario */
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 0, 0, 0.7);
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .nav {
+                grid-template-columns: 1fr; /* Para móviles, los botones se apilan en una sola columna */
+            }
+            .nav button {
+                width: 100%; /* Los botones ocupan todo el ancho */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1><img src="gestiones/2020.png" alt="Encabezado Álbum de Fotos" class="header-img"></h1>
+    
+    <div class="gallery">
+        <img src="2020/1.jpeg" >
+        <img src="2020/2.jpeg" >
+        <img src="2020/3.jpeg" >
+        <img src="2020/4.jpeg" >
+        <img src="2020/5.jpeg" >
+        <img src="2020/6.jpeg" >
+        <img src="2020/7.jpeg" >
+        <img src="2020/8.jpeg" >
+        <img src="2020/9.jpeg" >
+        <img src="2020/10.jpeg" >
+        <img src="2020/11.jpeg" >
+    </div>
+    <div class="nav">
+        <button onclick="location.href='gestion2022.html'"><img src="gestiones/2022.png" ></button>
+        <button onclick="location.href='gestion2019.html'"><img src="gestiones/2019.png" ></button>
+        <button onclick="location.href='gestion2018.html'"><img src="gestiones/2018.png" ></button>
+        <button onclick="location.href='gestion2017.html'"><img src="gestiones/2017.png" ></button>
+        <button onclick="location.href='gestion2016.html'"><img src="gestiones/2016.png" ></button>
+        <button onclick="location.href='gestion2015.html'"><img src="gestiones/2015.png" ></button>
+        <button onclick="location.href='index.html'"><img src="gestiones/inicio.png"></button>
+    </div>
+    
+    <script>
+        // Función para crear confeti
+        function createConfetti() {
+            for (let i = 0; i < 60; i++) { // Reducimos la cantidad
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.top = Math.random() * -10 + "vh";
+                confetti.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
+                confetti.style.animationDuration = (Math.random() * 5 + 3) + "s"; // Aumentamos duración
+                confetti.style.animationDelay = Math.random() * 3 + "s";
+                document.body.appendChild(confetti);
+                setTimeout(() => {
+                    confetti.remove();
+                }, 8000); // Aumentamos el tiempo antes de que desaparezca
+            }
+        }
+
+        // Llamamos a la función de confeti cada 4 segundos
+        setInterval(createConfetti, 1000); // Disminuimos la frecuencia de aparición
+    </script>
+</body>
+</html>
